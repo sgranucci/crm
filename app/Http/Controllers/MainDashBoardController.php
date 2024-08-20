@@ -18,8 +18,10 @@ class MainDashBoardController extends Controller
         $q_leads = DB::table('leads')->select(DB::raw('count(*) as leads'))->where('status_id', 1)->get();
         $q_contaf = DB::table('leads')->select(DB::raw('count(*) as contaf'))->where('status_id', 2)->whereIn('proxima_accion', [4,10,11,12])->get();
         $q_contaa = DB::table('leads')->select(DB::raw('count(*) as contaa'))->where('status_id', 2)->where('proxima_accion', 3)->get();
+        $q_conta = DB::table('leads')->select(DB::raw('count(*) as conta'))->where('status_id', 2)->get();
         $q_prospf = DB::table('leads')->select(DB::raw('count(*) as prospf'))->where('status_id', 3)->where('proxima_accion', 12)->get();
         $q_prospa = DB::table('leads')->select(DB::raw('count(*) as prospa'))->where('status_id', 3)->where('proxima_accion', '!=', 12)->get();
+        $q_prosp = DB::table('leads')->select(DB::raw('count(*) as prosp'))->where('status_id', 3)->get();
         $q_histo = DB::table('leads')->select(DB::raw('count(*) as histo'))->where('status_id', 5)->get();
         $q_clien = DB::table('leads')->select(DB::raw('count(*) as clien'))->where('status_id', 6)->get();
         $q_agend = DB::table('agendas')->select(DB::raw('count(*) as agend'))
@@ -30,14 +32,16 @@ class MainDashBoardController extends Controller
         $leads = $q_leads[0]->leads;
         $contaf = $q_contaf[0]->contaf;
         $contaa = $q_contaa[0]->contaa;
+        $conta = $q_conta[0]->conta;
         $prospf = $q_prospf[0]->prospf;
         $prospa = $q_prospa[0]->prospa;
+        $prosp = $q_prosp[0]->prosp;
         $histo = $q_histo[0]->histo;
         $clien = $q_clien[0]->clien;
         $agend = $q_agend[0]->agend;
 
-        //dd($q_prospf);    
-        return view('main_dashboard', compact('leads', 'contaa', 'prospa', 'contaf', 'prospf', 'histo', 'clien', 'total', 'agend'));
+        //dd($q_histo);    
+        return view('main_dashboard', compact('leads', 'conta', 'contaa', 'prosp', 'prospa', 'contaf', 'prospf', 'histo', 'clien', 'total', 'agend'));
     }
 
     public function desktopBusqueda(Request $request)
@@ -86,7 +90,8 @@ class MainDashBoardController extends Controller
                     $path = "historicos";
                 }
                 if ($value->estado==3) {
-                    if ($value->proxima_accion==10 || $value->proxima_accion==4 || $value->proxima_accion==11 || $value->proxima_accion==12) {
+                    if ($value->proxima_accion==10 || $value->proxima_accion==4 || $value->proxima_accion==11 || $value->proxima_accion==12)
+					{
                         $path = "prospectFacilitador";
                     } else {
                         $path = "prospect";
@@ -97,9 +102,11 @@ class MainDashBoardController extends Controller
                     if ($value->proxima_accion==10 || $value->proxima_accion==4 || $value->proxima_accion==11 || $value->proxima_accion==12) {
                         $path = "contactoFacilitador";
                     }
-                    if ($value->proxima_accion==3 || $value->proxima_accion==15 || $value->proxima_accion==18 || $value->proxima_accion==1) {
+                    if ($value->proxima_accion==3 || $value->proxima_accion==15 || $value->proxima_accion==18 || $value->proxima_accion==1 || $value->proxima_accion==13 || $value->proxima_accion == 22) {
                         $path = "contacto";
                     }
+                    if ($value->proxima_accion==7)
+                    	$path = "contacto";
                 }
 
                 if ($value->estado==1) {
@@ -125,6 +132,7 @@ class MainDashBoardController extends Controller
                 $salida .= "</tr>";
             }
             $salida .= "</tbody></table>";
+
             return $salida;
         }
     }

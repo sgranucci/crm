@@ -42,6 +42,7 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
         $this->col[] = ["label"=>"Observaciones","name"=>"detalle","width"=>"300"];
         $this->col[] = ["label"=>"Situacion","name"=>"situacion_id","join"=>"situacions,name"];
         $this->col[] = ["label"=>"Acción","name"=>"proxima_accion","join"=>"proxima_accions,name"];
+        $this->col[] = ["label"=>"Manager","name"=>"manager_id","join"=>"cms_users,name"];
         # END COLUMNS DO NOT REMOVE THIS LINE
 
         # START FORM DO NOT REMOVE THIS LINE
@@ -55,6 +56,7 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
         $this->form[] = ['label'=>'Proxima Accion','name'=>'proxima_accion','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-9','datatable'=>'proxima_accions,name'];
         $this->form[] = ['label'=>'Observaciones','name'=>'detalle','type'=>'textarea','validation'=>'required','width'=>'col-sm-9'];
         $this->form[] = ['label'=>'Situación:','name'=>'situacion_id','type'=>'select2','validation'=>'required','width'=>'col-sm-9','datatable'=>'situacions,name'];
+        $this->form[] = ['label'=>'Manager:','name'=>'manager_id','type'=>'select2','validation'=>'nullable|integer','width'=>'col-sm-10','datatable'=>'cms_users,name','datatable_where'=>'id != 3 and id != 1 and id != 16 and id != 2 and status != \'Inactivo\''];
         # END FORM DO NOT REMOVE THIS LINE
 
         # OLD START FORM
@@ -405,6 +407,7 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
                                 'leads.condimino1',
                                 'leads.condimino2',
                                 'leads.condimino3',
+								'cms_users.name as manager',	
                                 'canals.name as canal',
                                 'products.name as producto',
                                 'proxima_accions.name as accion',
@@ -419,6 +422,7 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
                             ->join('products', 'products.id', 'leads.product_id')
                             ->join('proxima_accions', 'proxima_accions.id', 'leads.proxima_accion')
                             ->join('situacions', 'situacions.id', 'leads.situacion_id')
+                        	->leftjoin('cms_users', 'cms_users.id', 'leads.manager_id')
                             ->where('status_id', '=', 2)
                             ->where('leads.id', $operador ,$test)
                             ->whereIn('proxima_accion', [10,4,11,12])
@@ -430,7 +434,8 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
             $sql1 = DB::table('agendas')
                         ->select('status', 'fecha','hora')
                         ->where('lead_id', $value->id)
-                        ->orderBy('id', 'DESC')
+                        ->orderBy('fecha', 'DESC')
+                        ->orderBy('hora', 'DESC')
                         ->first();
             $agenda_estado[$value->id]=$sql1->status;
             $agenda_fecha[$value->id]=$sql1->fecha . ' ' . $sql1->hora;

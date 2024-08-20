@@ -35,6 +35,7 @@
 			$this->col[] = ["label"=>"Acción","name"=>"name"];
 			$this->col[] = ["label"=>"Actualizar al estado","name"=>"lead_statuses_id","join"=>"lead_statuses,name"];
 			$this->col[] = ["label"=>"Estados a los que pertenece","name"=>"(SELECT GROUP_CONCAT(lead_statuses.name) FROM lead_statuses_proxima_accion JOIN lead_statuses on lead_statuses_proxima_accion.lead_statuses_id = lead_statuses.id WHERE lead_statuses_proxima_accion.proxima_accions_id = proxima_accions.id GROUP BY lead_statuses_proxima_accion.proxima_accions_id) as t"];
+			$this->col[] = ["label"=>"Estado Accion","name"=>"estado_id","join"=>"estados,name"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
@@ -42,6 +43,7 @@
 			$this->form[] = ['label'=>'Acción','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
 			$this->form[] = ['label'=>'Actualizar al estado:','name'=>'lead_statuses_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'lead_statuses,name'];
 			$this->form[] = ['label'=>'Estados donde se visualiza','name'=>'lead_statuses','type'=>'select2','width'=>'col-sm-10','datatable'=>'lead_statuses,name','relationship_table'=>'lead_statuses_proxima_accion'];
+			$this->form[] = ['label'=>'Estado Accion','name'=>'estado_id','type'=>'select2','validation'=>'required|integer|min:1','width'=>'col-sm-10','datatable'=>'estados,name'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

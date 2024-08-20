@@ -31,6 +31,8 @@ Route::post('report_contacto_cantidad', 'AdminLeads1Controller@reporte_contacto_
 Route::post('report_contacto_export', 'AdminLeads1Controller@report_contacto_export')->name('report_contacto_export');
 
 Route::get('admin/calendario', 'CalendarioController@index')->name('calendario');
+Route::get('admin/filtraCalendario', 'CalendarioController@indexFiltrado')->name('calendarioFiltrado');
 Route::get('admin/calendarioReuniones', 'CalendarioController@calendarioReuniones')->name('calendarioReuniones');
 
 Route::get('admin/addTicketManual/{id}','AdminTicketsController@addTicketManual')->name('addTicketManual');
+

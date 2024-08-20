@@ -6,6 +6,7 @@ use Session;
 use Illuminate\Http\Request;
 use DB;
 use CRUDBooster;
+use Illuminate\Support\Facades\Auth;
 
 use App\Lead;
 use App\Agenda;
@@ -16,13 +17,76 @@ class CalendarioController extends Controller
 {
     public function index()
     {
-        $agenda = DB::table('agendas')
+        $u = DB::table('cms_users')
+            ->select('id', 'name')
+  	    ->where('status', 'Activo')
+		->where('name', '<>', 'Super Admin')
+		->where('name', '<>', 'Admin API')
+	    ->orderBy('name', 'asc')
+            ->get()->toArray();
+        $dest_user_id = array();
+        $dest_user_id[0] = "Todos los usuarios";
+        foreach ($u as $key => $value) {
+            $dest_user_id[$value->id] = $value->name;
+        }
+	$usuario = CRUDBooster::myId();
+
+	if ($usuario != '' && $usuario != '0')
+        	$agenda = DB::table('agendas')
+                     ->select('leads.name as nombre', 'leads.id as id','leads.proxima_accion as proxima_accion', 'agendas.detalle', 'agendas.fecha', 'agendas.hora', 'lead_statuses.name as status')
+                     ->join('leads', 'leads.id', 'agendas.lead_id')
+                     ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
+                     ->where('agendas.status', 'Pendiente')
+                     ->where('agendas.dest_user_id', '=', $usuario)
+                     ->get();
+	else
+        	$agenda = DB::table('agendas')
+                     ->select('leads.name as nombre', 'leads.id as id','leads.proxima_accion as proxima_accion', 'agendas.detalle', 'agendas.fecha', 'agendas.hora', 'lead_statuses.name as status')
+                     ->join('leads', 'leads.id', 'agendas.lead_id')
+                     ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
+                     ->where('agendas.status', 'Pendiente')
+                     ->get();
+
+        return view('calendar', compact('agenda', 'dest_user_id', 'usuario'));
+    }
+
+    public function indexFiltrado(Request $request)
+    {
+        $u = DB::table('cms_users')
+            ->select('id', 'name')
+  	    	->where('status', 'Activo')
+			->where('name', '<>', 'Super Admin')
+			->where('name', '<>', 'Admin API')
+			->orderBy('name', 'asc')
+            ->get()->toArray();
+        $dest_user_id = array();
+        $dest_user_id[0] = "Todos los usuarios";
+        foreach ($u as $key => $value) {
+            $dest_user_id[$value->id] = $value->name;
+        }
+		$usuario = $request->get('filtro_usuario');
+
+		if ($usuario != '' && $usuario != '0')
+		{
+        	$agenda = DB::table('agendas')
+                      ->select('leads.name as nombre', 'leads.id as id','leads.proxima_accion as proxima_accion', 'agendas.detalle', 'agendas.fecha', 'agendas.hora', 'lead_statuses.name as status')
+                      ->join('leads', 'leads.id', 'agendas.lead_id')
+                      ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
+                      ->where('agendas.status', 'Pendiente')
+                      ->where('agendas.dest_user_id', '=', $usuario)
+                      ->get();
+		}
+		else
+		{
+        	$agenda = DB::table('agendas')
                       ->select('leads.name as nombre', 'leads.id as id','leads.proxima_accion as proxima_accion', 'agendas.detalle', 'agendas.fecha', 'agendas.hora', 'lead_statuses.name as status')
                       ->join('leads', 'leads.id', 'agendas.lead_id')
                       ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
                       ->where('agendas.status', 'Pendiente')
                       ->get();
-        return view('calendar', compact('agenda'));
+		}
+
+        return view('calendar', compact('agenda', 'dest_user_id', 'usuario'));
     }
 
     public function calendarioReuniones()

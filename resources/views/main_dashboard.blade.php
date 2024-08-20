@@ -17,35 +17,21 @@
 			</div>
 		</div>
 	</div>
-  <div id="area2" class="col-sm-2 connectedSortable" style="">
-    <div id="cfe4bfc3187479097c0b5e475140cfc0" class="border-box">
-			<div class="small-box bg-yellow	animated  flipInX delay-1s">
-			    <div class="inner inner-box">
-			      <h3>{{$contaf}}	</h3>
-			      <p>CONT. FACILITADOR	</p>
-			    </div>
-			    <div class="icon" style="padding-top:15px">
-			      <i class="ion ion-android-contacts	"></i>
-			    </div>
-			    <a href="{{CRUDBooster::adminPath()}}/contactoFacilitador" class="small-box-footer">Ir a Cont Facilitador <i class="fa fa-arrow-circle-right"></i></a>
-			</div>
-		</div>
-	</div>
   <div id="area21" class="col-sm-2 connectedSortable" style="">
     <div id="cfe4bfc3187479097c0b5e475140cfc0" class="border-box">
 			<div class="small-box bg-yellow	animated  flipInX delay-1s">
 			    <div class="inner inner-box">
-			      <h3>{{$contaa}}	</h3>
-			      <p>CONT. ASESORES	</p>
+			      <h3>{{$conta}}	</h3>
+			      <p>CONTACTO	</p>
 			    </div>
 			    <div class="icon" style="padding-top:15px">
 			      <i class="ion ion-android-contacts	"></i>
 			    </div>
-			    <a href="{{CRUDBooster::adminPath()}}/contacto" class="small-box-footer">Ir a Cont. Asesor <i class="fa fa-arrow-circle-right"></i></a>
+			    <a href="{{CRUDBooster::adminPath()}}/contacto" class="small-box-footer">Ir a Contacto <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 	</div>
-  <div id="area3" class="col-sm-2 connectedSortable" style="">
+{{--  <div id="area3" class="col-sm-2 connectedSortable" style="">
     <div id="c5b53f1f3c6b8f8b6483b95055e41a3c" class="border-box">
 			<div class="small-box bg-green	animated  flipInX delay-1500ms">
 			    <div class="inner inner-box">
@@ -58,18 +44,18 @@
 			    <a href="{{CRUDBooster::adminPath()}}/prospectFacilitador" class="small-box-footer">Ir a Prosp. Facilitador <i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
-	</div>
+	</div>--}}
   <div id="area31" class="col-sm-2 connectedSortable" style="">
     <div id="c5b53f1f3c6b8f8b6483b95055e41a3c" class="border-box">
 			<div class="small-box bg-green	animated  flipInX delay-1500ms">
 			    <div class="inner inner-box">
-			      <h3>{{$prospa}}	</h3>
-			      <p>PROSP. ASESORES	</p>
+			      <h3>{{$prosp}}	</h3>
+			      <p>PROSPECT	</p>
 			    </div>
 			    <div class="icon" style="padding-top:15px">
 			      <i class="ion ion-android-checkmark-circle	"></i>
 			    </div>
-			    <a href="{{CRUDBooster::adminPath()}}/prospect" class="small-box-footer">Ir a Prosp. Asesor <i class="fa fa-arrow-circle-right"></i></a>
+			    <a href="{{CRUDBooster::adminPath()}}/prospect" class="small-box-footer">Ir a Prospect<i class="fa fa-arrow-circle-right"></i></a>
 			</div>
 		</div>
 	</div>
@@ -129,9 +115,20 @@
         </div>
         <div class="box-body">
 
-          <div class="input-group">
+          <!--<div class="input-group">
             <span class="input-group-addon"><i class="fa fa-search"></i></span>
             <input type="text" id='bus' class="form-control" placeholder="Busca x NOMBRE, EMAIL, TELEFONO, PRODUCTO, CONTACTADO POR y SITUACION...">
+          </div>--!>
+          <div class="input-group">
+            <span class="input-group-addon"></span>
+				<div class="form-group">
+            		<input type="text" onkeyup = "if(event.keyCode == 13) busca()" id='searchtxt' class="form-control" placeholder="Busca x NOMBRE, EMAIL, TELEFONO, PRODUCTO, CONTACTADO POR y SITUACION...">
+				</div>
+				<div class="form-group">
+					<button id="btnSearch" onclick="busca()" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</div>
           </div>
           <br>
 
@@ -158,5 +155,12 @@
     </div>
 @endsection
 @push('scripts')
-	<script src="{{asset ('js/funciones.js') }}"></script>
+	 <script src="{{asset ('js/funciones.js') }}"></script>
 @endpush
+<script>
+function busca(){
+	var b = $("#searchtxt").val();
+
+	buscador(b);
+}
+</script>

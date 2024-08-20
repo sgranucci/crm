@@ -256,7 +256,7 @@
 	    |
 	    */
 	    public function hook_query_index(&$query) {
-	        dd($query->where('tickets.user_id',16)->where('tickets.status_id',1	);)
+	        $query->where('tickets.user_id',16)->where('tickets.status_id',1);
 
 	    }
 

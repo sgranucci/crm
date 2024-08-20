@@ -45,5 +45,5 @@ $(document).on('keyup','#bus',function(){
 		buscador();
 	}
 
-})
+});
 

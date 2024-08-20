@@ -31,11 +31,13 @@
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 			$this->col[] = ["label"=>"Canal","name"=>"name"];
+			$this->col[] = ["label"=>"Estado Canal","name"=>"estado_id","join"=>"estados,name"];
 			# END COLUMNS DO NOT REMOVE THIS LINE
 
 			# START FORM DO NOT REMOVE THIS LINE
 			$this->form = [];
 			$this->form[] = ['label'=>'Nombre del canal:','name'=>'name','type'=>'text','validation'=>'required|string|min:3|max:70','width'=>'col-sm-10','placeholder'=>'Puedes introducir solo una letra'];
+			$this->form[] = ['label'=>'Estado Canal','name'=>'estado_id','type'=>'select2','validation'=>'required|integer|min:1','width'=>'col-sm-10','datatable'=>'estados,name'];
 			# END FORM DO NOT REMOVE THIS LINE
 
 			# OLD START FORM

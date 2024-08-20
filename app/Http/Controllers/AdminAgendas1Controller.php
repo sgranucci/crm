@@ -15,8 +15,8 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
         $this->limit = "20";
         $this->orderby = "id,desc";
         $this->global_privilege = false;
-        $this->button_table_action = false;
-        $this->button_bulk_action = false;
+        $this->button_table_action = true;
+        $this->button_bulk_action = true;
         $this->button_action_style = "button_icon";
         $this->button_add = false;
         $this->button_edit = false;
@@ -61,11 +61,12 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
                     $path = "leads";
                 }
 
-                return "<a href='".CRUDBooster::adminPath()."/".$path."?q=".$row->leads_email."'>".$row->leads_name."</a>";
+                //return "<a href='".CRUDBooster::adminPath()."/".$path."?q=".$row->leads_email."'>".$row->leads_name."</a>";
+                return "<a href='".CRUDBooster::adminPath()."/".$path."?q=".$row->leads_id."'>".$row->leads_name."</a>";
             }
         }];
 
-        $this->col[] = ["label"=>"Contactado por:","name"=>"user_id","join"=>"cms_users,name"];
+        $this->col[] = ["label"=>"Contactado por","name"=>"user_id","join"=>"cms_users,name"];
         $this->col[] = ["label"=>"Fecha","name"=>"fecha"];
         $this->col[] = ["label"=>"Hora","name"=>"hora"];
         $this->col[] = ["label"=>"Estado","name"=>"status"];
@@ -138,6 +139,7 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
         |
         */
         $this->button_selected = array();
+	$this->button_selected[] = ['label'=>'Set Active','icon'=>'fa fa-check','name'=>'set_active'];
 
 
         /*
@@ -269,7 +271,10 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
     public function actionButtonSelected($id_selected, $button_name)
     {
         //Your code here
+  if($button_name == 'set_active') {
+	echo "xx";
     }
+}
 
 
     /*
@@ -357,6 +362,19 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
     public function hook_before_delete($id)
     {
         //Your code here
+       	$agenda = DB::table('agendas')->select('eventID', 'dest_user_id')->where('id',$id)->first();
+
+		if ($agenda)
+		{
+        	$dest_user = DB::table('cms_users')->select('calendarioID')->where('id', $agenda->dest_user_id)->first();
+			if ($dest_user)
+			{
+				$calendarioID = $dest_user->calendarioID;
+
+				$comando = "cd /var/www/html/google; php borra-evento.php ".$calendarioID." ".$agenda->eventID;
+				$ret = system($comando, $retorno);
+			}
+		}
     }
 
     /*

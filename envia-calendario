@@ -1,0 +1,4 @@
+echo 'grabando'
+echo $*
+cd /var/www/html/google
+php envia-calendario.php $*

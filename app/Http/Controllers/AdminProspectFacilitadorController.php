@@ -42,6 +42,7 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
         $this->col[] = ["label"=>"Observaciones","name"=>"detalle","width"=>"300"];
         $this->col[] = ["label"=>"Situacion","name"=>"situacion_id","join"=>"situacions,name"];
         $this->col[] = ["label"=>"Acción","name"=>"proxima_accion","join"=>"proxima_accions,name"];
+        $this->col[] = ["label"=>"Manager","name"=>"manager_id","join"=>"cms_users,name"];
         # END COLUMNS DO NOT REMOVE THIS LINE
 
         # START FORM DO NOT REMOVE THIS LINE
@@ -59,6 +60,7 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
         $this->form[] = ['label'=>'Condomino 1:','name'=>'condimino1','width'=>'col-sm-9'];
         $this->form[] = ['label'=>'Condomino 2:','name'=>'condimino2','width'=>'col-sm-9'];
         $this->form[] = ['label'=>'Condomino 3:','name'=>'condimino3','width'=>'col-sm-9'];
+        $this->form[] = ['label'=>'Manager:','name'=>'manager_id','type'=>'select2','validation'=>'nullable|integer','width'=>'col-sm-10','datatable'=>'cms_users,name','datatable_where'=>'id != 3 and id != 1 and id != 16 and id != 2 and status != \'Inactivo\''];
         # END FORM DO NOT REMOVE THIS LINE
 
         # OLD START FORM
@@ -393,6 +395,7 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
                                     'leads.condimino1',
                                     'leads.condimino2',
                                     'leads.condimino3',
+									'cms_users.name as manager',	
                                     'canals.name as canal',
                                     'products.name as producto',
                                     'proxima_accions.name as accion',
@@ -407,9 +410,10 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
                                 ->join('products', 'products.id', 'leads.product_id')
                                 ->join('proxima_accions', 'proxima_accions.id', 'leads.proxima_accion')
                                 ->join('situacions', 'situacions.id', 'leads.situacion_id')
+                        		->leftjoin('cms_users', 'cms_users.id', 'leads.manager_id')
                                 ->where('status_id', '=', 3)
                                 ->where('leads.id', $operador ,$test)
-                                ->WhereIn('proxima_accion', [12])
+                                ->WhereIn('proxima_accion', [12,10])
                                 ->orderby('ult', 'desc')
                                 ->get();
         $agenda_estado = [];
@@ -417,7 +421,9 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
             $sql1 = DB::table('agendas')
                             ->select('status', 'fecha', 'hora')
                             ->where('lead_id', $value->id)
-                            ->orderBy('id', 'DESC')
+                            //->orderBy('id', 'DESC')
+                        	->orderBy('fecha', 'DESC')
+                        	->orderBy('hora', 'DESC')
                             ->first();
             $agenda_estado[$value->id]=$sql1->status;
             $agenda_fecha[$value->id]= $sql1->fecha . ' ' . $sql1->hora;
@@ -427,8 +433,8 @@ class AdminProspectFacilitadorController extends \crocodicstudio\crudbooster\con
 
         $data['agenda_fecha'] = $agenda_fecha;
 
-        $data['ventana21'] = Carbon::now()->subDays(21)->format('Y-m-d');
-        $data['ventana20'] = Carbon::now()->subDays(20)->format('Y-m-d');
+        $data['ventana21'] = Carbon::now()->subDays(16)->format('Y-m-d');
+        $data['ventana20'] = Carbon::now()->subDays(15)->format('Y-m-d');
         $data['ventana10'] = Carbon::now()->subDays(10)->format('Y-m-d');
         //SELECT created_at FROM tickets WHERE tickets.lead_id = leads.id ORDER BY tickets.id DESC LIMIT 1) as UltTicket"
         //Create a view. Please use `cbView` method instead of view method from laravel.

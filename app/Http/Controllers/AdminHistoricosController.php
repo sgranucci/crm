@@ -391,6 +391,7 @@ use Session;
                                     'leads.condimino1',
                                     'leads.condimino2',
                                     'leads.condimino3',
+									'cms_users.name as manager',	
                                     'canals.name as canal',
                                     'products.name as producto',
                                     'proxima_accions.name as accion',
@@ -405,6 +406,7 @@ use Session;
                                 ->join('products', 'products.id', 'leads.product_id')
                                 ->join('proxima_accions', 'proxima_accions.id', 'leads.proxima_accion')
                                 ->join('situacions', 'situacions.id', 'leads.situacion_id')
+                        		->leftjoin('cms_users', 'cms_users.id', 'leads.manager_id')
                                 ->where('status_id', '=', 5)
                                 ->where('leads.id', $operador ,$test)
                                 ->orderby('ult', 'desc')
@@ -414,7 +416,8 @@ use Session;
                 $sql1 = DB::table('agendas')
                             ->select('status', 'fecha','hora')
                             ->where('lead_id', $value->id)
-                            ->orderBy('id', 'DESC')
+                        	->orderBy('fecha', 'DESC')
+                        	->orderBy('hora', 'DESC')
                             ->first();
                 $agenda_estado[$value->id]=$sql1->status;
                 $agenda_fecha[$value->id]=$sql1->fecha . ' ' . $sql1->hora;
@@ -424,8 +427,8 @@ use Session;
 
             $data['agenda_fecha'] = $agenda_fecha;
 
-            $data['ventana21'] = Carbon::now()->subDays(21)->format('Y-m-d');
-            $data['ventana20'] = Carbon::now()->subDays(20)->format('Y-m-d');
+            $data['ventana21'] = Carbon::now()->subDays(16)->format('Y-m-d');
+            $data['ventana20'] = Carbon::now()->subDays(15)->format('Y-m-d');
             $data['ventana10'] = Carbon::now()->subDays(10)->format('Y-m-d');
             //SELECT created_at FROM tickets WHERE tickets.lead_id = leads.id ORDER BY tickets.id DESC LIMIT 1) as UltTicket"
             //Create a view. Please use `cbView` method instead of view method from laravel.

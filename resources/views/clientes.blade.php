@@ -12,7 +12,10 @@
             <th>Canal / Producto</th>
             <th>Detalle</th>
             <th>Accion / Situación</th>
-            <th>Condominio</th>
+			@if ($page_title == 'Clientes')	
+            	<th>Condomino</th>
+			@endif
+            <th>Manager</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -23,25 +26,13 @@
         
         <tr>
             @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') >= $ventana10 )
-                @if($row->situacion_id == 24)
-                    <td width="10" style="background-color:purple"></td>
-                    @else
-                    <td width="10" style="background-color:green"></td>
-                @endif
+               <td width="10" style="background-color:green"></td>
             @endif
-            @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') >= $ventana20 and \Carbon\Carbon::parse($row->ult)->format('Y-m-d') < $ventana10 )
-                @if($row->situacion_id == 24)
-                    <td width="10" style="background-color:purple"></td>
-                @else
-                    <td width="10" style="background-color:orange"></td>
-                @endif
+            @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') < $ventana10 and \Carbon\Carbon::parse($row->ult)->format('Y-m-d') >= $ventana20 )
+               <td width="10" style="background-color:yellow"></td>
             @endif
             @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') <= $ventana21 )
-                @if($row->situacion_id == 24)
-                    <td width="10" style="background-color:purple"></td>
-                @else
-                    <td width="10" style="background-color:red"></td>
-                @endif
+               <td width="10" style="background-color:red"></td>
             @endif
             <td width="100">
                 @if(isset($row->ult))
@@ -62,6 +53,9 @@
                     </a>
                   @endif
                 @endif
+                    {{--<a class='btn btn-danger btn-xs' href="{{CRUDBooster::adminpath()}}/agendas?q={{$row->email}}">
+                      <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </a>--}}
 
                 {{-- @if($agenda_estado[$row->id] == "Reunion Pendiente")
                   @if($agenda_fecha[$row->id] >= \Carbon\Carbon::parse(now())->format('Y-m-d') )
@@ -88,7 +82,6 @@
                     </a>
                   @endif
                 @endif
-
                 @if($agenda_estado[$row->id] == "Reunion Oficina")
                                       
                   
@@ -108,7 +101,6 @@
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </a>
                 @endif
-
             </td>
             <td>
                 <b>{{$row->name}}</b><br>
@@ -125,11 +117,18 @@
                 <span class="label label-info"> {{$row->situacion}}</span><br>
                 Ctte: <b><span class=" label label-success">{{$row->comitente}}</span></b>
             </td>
+			@if ($page_title == 'Clientes')	
+            	<td>
+                	<small>
+                    	c1: {{$row->condimino1}}<br>
+                    	c2: {{$row->condimino2}}<br>
+                    	c3: {{$row->condimino3}}
+                	</small>
+            	</td>
+			@endif
             <td>
                 <small>
-                    c1: {{$row->condimino1}}<br>
-                    c2: {{$row->condimino2}}<br>
-                    c3: {{$row->condimino3}}
+                    {{$row->manager}}
                 </small>
             </td>
             <td>
