@@ -59,7 +59,7 @@ return [
     'alert_update_data_failed' => 'Algo ha fallado al actualizar los datos',
     'alert_delete_data_success' => '¡Borrado de datos con éxito!',
     'alert_want_to_logout' => '¿Quieres finalizar la sesión?',
-    'alert_warning' => "¡Upss!",
+    'alert_warning' => "¡Atención!",
     'alert_danger' => 'Parece que algo no funciona...',
     'alert_success' => 'Hecho, buen trabajo...',
     'alert_info' => 'Información',

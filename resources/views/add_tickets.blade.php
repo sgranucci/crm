@@ -122,7 +122,7 @@
                 	</div>
                 </div>
                 <div class="row">
-              	<div class="col-md-6">
+              	<div class="col-md-8">
                 	<div class='form-group'>
                    		{!! Form::label ('fecha_ag', 'Fecha:' ) !!}
                    		{!! Form::date('fecha_ag', \Carbon\Carbon::now(),['class'=> 'form-control ag' , 'id' => 'fecha'] ) !!}

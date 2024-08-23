@@ -656,6 +656,7 @@ class AdminTicketsController extends \crocodicstudio\crudbooster\controllers\CBC
             ->join('situacions', 'situacions.id', 'lead_statuses_situacions.situacions_id')
             ->where('lead_statuses_situacions.lead_statuses_id', $query[0]->status_id)
 			->where('situacions.estado_id', 1)
+            ->orderBy('situacions.name')
             ->get()->toArray();
 
         $situaciones = array();
@@ -688,6 +689,7 @@ class AdminTicketsController extends \crocodicstudio\crudbooster\controllers\CBC
             ->join('proxima_accions', 'proxima_accions.id', 'lead_statuses_proxima_accion.proxima_accions_id')
             ->where('lead_statuses_proxima_accion.lead_statuses_id', $query[0]->status_id)
 			->where('proxima_accions.estado_id', 1)
+            ->orderBy('proxima_accions.name')
             ->get()->toArray();
         $acciones = array();
 

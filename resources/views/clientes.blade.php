@@ -9,7 +9,7 @@
             <th></th>
             <th>Fechas</th>
             <th>Nombre / Mail</th>
-            <th>Canal / Producto</th>
+            <th>Canal</th>
             <th>Detalle</th>
             <th>Accion / Situación</th>
 			@if ($page_title == 'Clientes')	
@@ -26,13 +26,13 @@
         
         <tr>
             @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') >= $ventana10 )
-               <td width="10" style="background-color:green"></td>
+               <td width="5" style="background-color:hsl(120,30%,50%)"></td>
             @endif
             @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') < $ventana10 and \Carbon\Carbon::parse($row->ult)->format('Y-m-d') >= $ventana20 )
-               <td width="10" style="background-color:yellow"></td>
+               <td width="5" style="background-color:hsl(60,80%,50%)"></td>
             @endif
             @if(\Carbon\Carbon::parse($row->ult)->format('Y-m-d') <= $ventana21 )
-               <td width="10" style="background-color:red"></td>
+               <td width="5" style="background-color:hsl(5,90%,45%)">
             @endif
             <td width="100">
                 @if(isset($row->ult))
@@ -109,7 +109,7 @@
             </td>
             <td width="100">
                 <span class="label label-primary">{{$row->canal}}</span><br>
-                <span class="label label-default"> {{$row->producto}}</span>
+                {{--<span class="label label-default"> {{$row->producto}}</span>--}}
             </td>
             <td width="250"><small>{{$row->detalle}}</small></td>
             <td>

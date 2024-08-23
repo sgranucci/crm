@@ -45,7 +45,7 @@
       	events: [
         @foreach ($agenda as $ag)
         	{
-          		title: '{{ $ag->nombre. ' - '. $ag->status  }}',
+          		title: '{{ substr($ag->usuario,0,1).' '. $ag->nombre. ' - '. $ag->status  }}',
           		start: '{{ $ag->fecha.' '.$ag->hora }}',
           		end:   '{{ $ag->fecha.' '.$ag->hora }}',
           		@if ($ag->status == "Lead")
