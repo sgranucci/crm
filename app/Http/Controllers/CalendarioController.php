@@ -40,7 +40,8 @@ class CalendarioController extends Controller
                      ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
                      ->join('cms_users', 'cms_users.id', 'agendas.user_id')
                      ->where('agendas.status', 'Pendiente')
-                     ->where('agendas.dest_user_id', '=', $usuario)
+                     //->where('agendas.dest_user_id', '=', $usuario)
+                     ->where('agendas.user_id', '=', $usuario)
                      ->get();
 	else
         	$agenda = DB::table('agendas')
@@ -82,7 +83,8 @@ class CalendarioController extends Controller
                       ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
                       ->join('cms_users', 'cms_users.id', 'agendas.user_id')
                       ->where('agendas.status', 'Pendiente')
-                      ->where('agendas.dest_user_id', '=', $usuario)
+                      //->where('agendas.dest_user_id', '=', $usuario)
+                      ->where('agendas.user_id', '=', $usuario)
                       ->get();
 		}
 		else

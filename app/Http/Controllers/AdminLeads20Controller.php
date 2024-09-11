@@ -450,6 +450,12 @@ class AdminLeads20Controller extends \crocodicstudio\crudbooster\controllers\CBC
         $data['ventana21'] = Carbon::now()->subDays(16)->format('Y-m-d');
         $data['ventana20'] = Carbon::now()->subDays(15)->format('Y-m-d');
         $data['ventana10'] = Carbon::now()->subDays(10)->format('Y-m-d');
+
+        $usuario = DB::table('cms_users')->select('id_cms_privileges')->where('id', CRUDBooster::myId())->first();
+        $privilegio = $usuario->id_cms_privileges;
+
+        $data['privilegio'] = $privilegio;
+ 
         //SELECT created_at FROM tickets WHERE tickets.lead_id = leads.id ORDER BY tickets.id DESC LIMIT 1) as UltTicket"
         //Create a view. Please use `cbView` method instead of view method from laravel.
         $this->cbView('clientes', $data);

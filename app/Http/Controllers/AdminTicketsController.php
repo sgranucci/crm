@@ -38,10 +38,12 @@ class AdminTicketsController extends \crocodicstudio\crudbooster\controllers\CBC
 
         # START COLUMNS DO NOT REMOVE THIS LINE
         $this->col = [];
-        $this->col[] = ["label" => "Fecha Contacto", "name" => "created_at"];
+        $this->col[] = ["label" => "Fecha Contacto", "name" => "created_at", "callback"=>function($row) {
+                        return substr($row->created_at,8,2).'-'.substr($row->created_at,5,2).'-'.substr($row->created_at,0,4).' '.substr($row->created_at,-8);
+                        }];
         $this->col[] = ["label" => "Contactado por", "name" => "user_id", "join" => "cms_users,name"];
         $this->col[] = ["label" => "Canal", "name" => "canal_id", "join" => "canals,name"];
-        $this->col[] = ["label" => "Producto", "name" => "product_id", "join" => "products,name"];
+        //$this->col[] = ["label" => "Producto", "name" => "product_id", "join" => "products,name"];
         $this->col[] = ["label" => "Detalle", "name" => "detalle"];
         $this->col[] = ["label" => "Situacion", "name" => "situacion_id", "join" => "situacions,name"];
         $this->col[] = ['label' => 'Lead:', 'name' => 'lead_id', 'join' => 'leads,name'];
@@ -53,7 +55,7 @@ class AdminTicketsController extends \crocodicstudio\crudbooster\controllers\CBC
         $usuario = DB::table('cms_users')->select('id_cms_privileges')->where('id', CRUDBooster::myId())->first();
         $privilegio = $usuario->id_cms_privileges;
         $fecha_hoy = strtotime(\Carbon\Carbon::now());
-        $fecha_final = date("Y-m-d", strtotime("+1 month", $fecha_hoy));
+        $fecha_final = date("d-m-Y", strtotime("+1 month", $fecha_hoy));
 
         # START FORM DO NOT REMOVE THIS LINE
         $this->form = [];

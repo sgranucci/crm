@@ -12,7 +12,6 @@ class AdminContactoController extends \crocodicstudio\crudbooster\controllers\CB
 {
     public function cbInit()
     {
-
 			# START CONFIGURATION DO NOT REMOVE THIS LINE
 			$this->title_field = "name";
 			$this->limit = "20";
@@ -420,7 +419,7 @@ class AdminContactoController extends \crocodicstudio\crudbooster\controllers\CB
                             ->join('proxima_accions', 'proxima_accions.id', 'leads.proxima_accion')
                             ->join('situacions', 'situacions.id', 'leads.situacion_id')
                                                     ->where('status_id', '=', 2)
-                                                    //->where('leads.id', $operador ,$test)
+                                                    ->where('leads.id', $operador ,$test)
                                                     //->WhereIn('proxima_accion', [3,15,18,1,7,13,22])
                         	->leftjoin('cms_users', 'cms_users.id', 'leads.manager_id')
                             ->orderby('ult', 'desc')
@@ -444,6 +443,12 @@ class AdminContactoController extends \crocodicstudio\crudbooster\controllers\CB
         $data['ventana21'] = Carbon::now()->subDays(16)->format('Y-m-d');
         $data['ventana20'] = Carbon::now()->subDays(15)->format('Y-m-d');
         $data['ventana10'] = Carbon::now()->subDays(10)->format('Y-m-d');
+
+        $usuario = DB::table('cms_users')->select('id_cms_privileges')->where('id', CRUDBooster::myId())->first();
+        $privilegio = $usuario->id_cms_privileges;
+
+        $data['privilegio'] = $privilegio;
+        
         //SELECT created_at FROM tickets WHERE tickets.lead_id = leads.id ORDER BY tickets.id DESC LIMIT 1) as UltTicket"
         //Create a view. Please use `cbView` method instead of view method from laravel.
         $this->cbView('clientes', $data);

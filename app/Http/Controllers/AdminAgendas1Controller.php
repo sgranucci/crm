@@ -67,7 +67,9 @@ class AdminAgendas1Controller extends \crocodicstudio\crudbooster\controllers\CB
         }];
 
         $this->col[] = ["label"=>"Contactado por","name"=>"user_id","join"=>"cms_users,name"];
-        $this->col[] = ["label"=>"Fecha","name"=>"fecha"];
+        $this->col[] = ["label"=>"Fecha","name"=>"fecha", "callback"=>function($row) {
+                        return substr($row->fecha,8,2).'-'.substr($row->fecha,5,2).'-'.substr($row->fecha,0,4);
+                        }];
         $this->col[] = ["label"=>"Hora","name"=>"hora"];
         $this->col[] = ["label"=>"Estado","name"=>"status"];
         $this->col[] = ["label"=>"Detalle","name"=>"detalle"];

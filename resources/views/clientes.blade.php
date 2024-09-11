@@ -140,9 +140,10 @@
                    href="{{CRUDBooster::adminpath()}}/tickets?parent_table=leads&parent_columns=name,tel_full&parent_columns_alias=&parent_id={{$row->id}}&return_url={{ $url }}&foreign_key=lead_id&label=Tickets">
                     <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                 </a>
-                {{-- @if(CRUDBooster::isDelete() && $button_edit)
-                <a class='btn btn-danger btn-sm' href='{{CRUDBooster::mainpath("delete/$row->id")}}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
-                    @endif --}}
+                @if(CRUDBooster::isDelete() && $button_edit && $privilegio == 1)
+                  {{--<a class='btn btn-danger btn-xs' href='{{CRUDBooster::mainpath("delete/$row->id")}}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>--}}
+                  <a class='btn btn-danger btn-xs' onClick='borraLead({{$row->id}})'><span class="glyphicon glyphicon-trash" aria-hidden="true"></a>
+                @endif
             </td>
         </tr>
         @endforeach
@@ -174,6 +175,23 @@
       var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
       results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function borraLead(id)
+    {
+        if (confirm('Seguro que da de baja?'))
+        {
+          $.get('/site/public/borra_lead/'+id, function(data){
+            var mail = $.map(data, function(value, index){
+                          return [value];
+              });
+              $.each(mail, function(index,value){
+
+                  if (value == 'Ya existe email')
+                    alert(value);
+              });
+          });
+        }
     }
     var prodId = getParameterByName('q');
     console.log(prodId);

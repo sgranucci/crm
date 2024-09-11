@@ -18,10 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('admin/tickets/prox_estado/{id}', 'ProximaAccionController@proxestado');
+Route::get('admin/tickets/prox_accion/{situacion_id}', 'ProximaAccionController@proxaccion');
 
 Route::get('admin/main_dashboard', 'MainDashBoardController@Dashboard')->name('dash');
 Route::post('admin/busqueda', 'MainDashBoardController@desktopBusqueda');
 
+Route::get('borra_lead/{id}', 'AdminLeads1Controller@borraLead')->name('borra_lead');
 Route::get('reporte_leads', 'AdminLeads1Controller@reporte_leads')->name('reporte_leads');
 Route::post('report_lead_cantidad', 'AdminLeads1Controller@reporte_lead_cantidad')->name('report_lead_cantidad');
 Route::post('report_lead_export', 'AdminLeads1Controller@report_lead_export')->name('report_lead_export');

@@ -90,23 +90,11 @@ class MainDashBoardController extends Controller
                     $path = "historicos";
                 }
                 if ($value->estado==3) {
-                    if ($value->proxima_accion==10 || $value->proxima_accion==4 || $value->proxima_accion==11 || $value->proxima_accion==12)
-					{
-                        $path = "prospectFacilitador";
-                    } else {
-                        $path = "prospect";
-                    }
+                    $path = "prospect";
                 }
 
                 if ($value->estado==2) {
-                    if ($value->proxima_accion==10 || $value->proxima_accion==4 || $value->proxima_accion==11 || $value->proxima_accion==12) {
-                        $path = "contactoFacilitador";
-                    }
-                    if ($value->proxima_accion==3 || $value->proxima_accion==15 || $value->proxima_accion==18 || $value->proxima_accion==1 || $value->proxima_accion==13 || $value->proxima_accion == 22) {
-                        $path = "contacto";
-                    }
-                    if ($value->proxima_accion==7)
-                    	$path = "contacto";
+                    $path = "contacto";
                 }
 
                 if ($value->estado==1) {

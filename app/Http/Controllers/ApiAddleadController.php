@@ -61,7 +61,8 @@
 		        $postdata['tel_full']					= $postdata['telefono'];
 		        $postdata['status_id'] 					= 1;
 		        $postdata['user_id']					= 1;
-		        $postdata['situacion_id'] 				= 1;
+		        $postdata['situacion_id'] 				= 33;
+				$postdata['proxima_accion'] 			= 42;
 				if (isset($postdata['mensaje'])){
 					$postdata['detalle'] 				= $postdata['mensaje'];
 				}else{
@@ -150,9 +151,9 @@
 													'product_id' => $postdata['product_id'],
 													'status_id' => 2,
 													'user_id' => $postdata['user_id'],
-													'proxima_accion' => 10,
+													'proxima_accion' => 43,
 													'detalle' => $detalle,
-													'situacion_id' => 1,
+													'situacion_id' => 34,
 													'comitente' => null,
 													'manager_id' => $postdata['manager_id']
 													]);
@@ -206,9 +207,9 @@
 													'product_id' => $postdata['product_id'],
 													'status_id' => 2,
 													'user_id' => $postdata['user_id'],
-													'proxima_accion' => 10,
+													'proxima_accion' => 43,
 													'detalle' => $detalle,
-													'situacion_id' => 1,
+													'situacion_id' => 34,
 													'comitente' => null,
 													'manager_id' => $postdata['manager_id']
 													]);
@@ -232,7 +233,7 @@
 											->where('id',$result['id'])
 											->where('canal_id',$postdata['canal_id'])
 											->update(['status_id' => 2,
-													'proxima_accion' => 10]);
+													'proxima_accion' => 43]);
 						}
 						else // Si es alta definitiva lo borra del otro cajon
 						{
@@ -269,12 +270,20 @@
 			    		'canal_id'					=> $postdata['canal_id'],
 						'detalle'					=> $detalle,
 						'product_id'				=> $postdata['product_id'],
-			    		'proxima_accion'			=> ($postdata['canal_id'] == 30 ? 10 : 3),
-			    		'situacion_id'				=> 1,
+			    		'proxima_accion'			=> 42,
+			    		'situacion_id'				=> 33,
 			    		'telefono'					=> $postdata['telefono'],
 			    		'created_at'			    => \Carbon\Carbon::now()
 			    	]
 			    ]);
+
+				if ($flAltaParcial)
+				{
+					$res = DB::table('leads')
+									->where('id',$id)
+									->update(['status_id' => 2,
+											'proxima_accion' => 43]);
+				}
 		    }
 
 		}

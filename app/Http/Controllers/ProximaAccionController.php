@@ -21,4 +21,14 @@ class ProximaAccionController extends Controller
 		return $query;
     }
     
+	// Lee las acciones de una situacion
+	public function proxaccion($situacion_id) {
+		$query = DB::table('situacion_accion')
+				 ->select('situacion_accion.proxima_accions_id as idacc','proxima_accions.name')
+				 ->join('proxima_accions','proxima_accions.id','situacion_accion.proxima_accions_id')
+				 ->where('situacion_accion.situacions_id',$situacion_id)
+				 ->get();
+		return $query;
+    }
+    
 }

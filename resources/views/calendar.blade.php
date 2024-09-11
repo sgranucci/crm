@@ -44,8 +44,15 @@
         
       	events: [
         @foreach ($agenda as $ag)
+			@php $inicial = ''; @endphp
+			@for ($i = 0; $i < strlen($ag->usuario); $i++)
+				@if (substr($ag->usuario, $i, 1) === strtoupper(substr($ag->usuario, $i, 1)))
+					@php $inicial .= substr($ag->usuario, $i, 1); @endphp
+				@endif
+			@endfor
+			@php $inicial=str_replace(' ', '', $inicial); @endphp
         	{
-          		title: '{{ substr($ag->usuario,0,1).' '. $ag->nombre. ' - '. $ag->status  }}',
+          		title: '{{ $inicial.'|'. $ag->nombre. ' - '. $ag->status  }}',
           		start: '{{ $ag->fecha.' '.$ag->hora }}',
           		end:   '{{ $ag->fecha.' '.$ag->hora }}',
           		@if ($ag->status == "Lead")
@@ -57,27 +64,22 @@
           		@if ($ag->status == "Contacto")
           			color: 'orange',
           			@if ($ag->proxima_accion == 3 || $ag->proxima_accion == 15 || $ag->proxima_accion == 18 || $ag->proxima_accion == 1)
-                  @php
+                  		@php
             				$path = CRUDBooster::adminPath() ."/contacto?q=".$ag->id;
             			@endphp
-                @endif
-                @if ($ag->proxima_accion == 10 || $ag->proxima_accion == 11 || $ag->proxima_accion == 4)
-                  @php
-                    $path = CRUDBooster::adminPath() ."/contactoFacilitador?q=".$ag->id;
-                  @endphp
-                @endif
+                	@endif
           		@endif
           		@if ($ag->status == "Prospect")
           			color: 'green',
           			@if ($ag->proxima_accion == 12)
-                  @php
+                  		@php
             				$path = CRUDBooster::adminPath() ."/prospectFacilitador?q=".$ag->id;
             			@endphp
-                @else
-                  @php
-                    $path = CRUDBooster::adminPath() ."/prospect?q=".$ag->id;
-                  @endphp
-                @endif
+                	@else
+                  		@php
+                    		$path = CRUDBooster::adminPath() ."/prospect?q=".$ag->id;
+                  		@endphp
+                	@endif
           		@endif
           		@if ($ag->status == "Cliente")
           			color: 'grey',

@@ -22,7 +22,7 @@ return [
     'alpha_num'            => 'El atributo :attribute may only contain letters and numbers.',
     'array'                => 'El atributo :attribute must be an array.',
     'before'               => 'El atributo :attribute must be a date before :date.',
-    'before_or_equal'      => 'El atributo :attribute tiene que ser menor o igual a :date.',
+    'before_or_equal'      => 'El campo fecha tiene que ser menor o igual a :date.',
     'between'              => [
         'numeric' => 'El atributo :attribute must be between :min and :max.',
         'file'    => 'El atributo :attribute must be between :min and :max kilobytes.',
