@@ -300,19 +300,19 @@
         var situacion_id = $(this).val();
         var select = $("#proxima_accion");
 
-        //select.empty();
-        //$.ajax({
-        //    url: "prox_accion/" + situacion_id,
-        //    success: function(r) {
-        //        // Arma select
-       	//		select.append('<option value="">-- Ingrese próxima acción --</option>');
-        //        $.each(r, function(obj, item) {
-        //           if (item.idacc != '')
-        //                select.append('<option value="' + item.idacc + '">' + item.name + '</option>');
-        //        });
+        select.empty();
+        $.ajax({
+            url: "prox_accion/" + situacion_id,
+            success: function(r) {
+                // Arma select
+       			select.append('<option value="">-- Ingrese próxima acción --</option>');
+                $.each(r, function(obj, item) {
+                   if (item.idacc != '')
+                        select.append('<option value="' + item.idacc + '">' + item.name + '</option>');
+                });
 
-        //    }
-        //});
+            }
+        });
     });
 
 
