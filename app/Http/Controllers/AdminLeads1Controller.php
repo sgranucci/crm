@@ -31,7 +31,6 @@ class AdminLeads1Controller extends \crocodicstudio\crudbooster\controllers\CBCo
 			$this->button_export = true;
 			$this->table = "leads";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
-
 			# START COLUMNS DO NOT REMOVE THIS LINE
 			$this->col = [];
 			$this->col[] = ["label"=>"Creado","name"=>"created_at"];

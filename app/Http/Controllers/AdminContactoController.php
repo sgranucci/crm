@@ -52,8 +52,8 @@ class AdminContactoController extends \crocodicstudio\crudbooster\controllers\CB
         $this->form[] = ['label'=>'Email','name'=>'email','type'=>'email','validation'=>'required|min:1|max:255|email|unique:leads','width'=>'col-sm-10','placeholder'=>'Introduce una dirección de correo electrónico válida'];
         $this->form[] = ['label'=>'Prefijo','name'=>'prefijo','type'=>'text','validation'=>'string|max:6','width'=>'col-sm-10'];
         $this->form[] = ['label'=>'Telefono','name'=>'telefono','type'=>'text','validation'=>'string|max:12','width'=>'col-sm-10'];
-        $this->form[] = ['label'=>'Canal','name'=>'canal_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'canals,name'];
-        $this->form[] = ['label'=>'Producto','name'=>'product_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'products,name'];
+        $this->form[] = ['label'=>'Canal','name'=>'canal_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'canals,name','datatable_where'=>'estado_id = 1'];
+        //$this->form[] = ['label'=>'Producto','name'=>'product_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'products,name'];
         $this->form[] = ['label'=>'Proxima Accion','name'=>'proxima_accion','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-9','datatable'=>'proxima_accions,name'];
         $this->form[] = ['label'=>'Observaciones','name'=>'detalle','type'=>'textarea','validation'=>'required','width'=>'col-sm-9'];
         $this->form[] = ['label'=>'Situación:','name'=>'situacion_id','type'=>'select2','validation'=>'required','width'=>'col-sm-9','datatable'=>'situacions,name'];

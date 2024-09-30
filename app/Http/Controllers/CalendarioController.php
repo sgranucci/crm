@@ -30,7 +30,6 @@ class CalendarioController extends Controller
             $dest_user_id[$value->id] = $value->name;
         }
 	$usuario = CRUDBooster::myId();
-
 	if ($usuario != '' && $usuario != '0')
         	$agenda = DB::table('agendas')
                      ->select('leads.name as nombre', 'leads.id as id','leads.proxima_accion as proxima_accion', 
@@ -38,10 +37,11 @@ class CalendarioController extends Controller
                             'cms_users.name as usuario')
                      ->join('leads', 'leads.id', 'agendas.lead_id')
                      ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
-                     ->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                     //->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                     ->join('cms_users', 'cms_users.id', 'agendas.dest_user_id')
                      ->where('agendas.status', 'Pendiente')
-                     //->where('agendas.dest_user_id', '=', $usuario)
-                     ->where('agendas.user_id', '=', $usuario)
+                     ->where('agendas.dest_user_id', '=', $usuario)
+                     //->where('agendas.user_id', '=', $usuario)
                      ->get();
 	else
         	$agenda = DB::table('agendas')
@@ -50,7 +50,8 @@ class CalendarioController extends Controller
                             'cms_users.name as usuario')
                      ->join('leads', 'leads.id', 'agendas.lead_id')
                      ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
-                     ->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                     //->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                     ->join('cms_users', 'cms_users.id', 'agendas.dest_user_id')
                      ->where('agendas.status', 'Pendiente')
                      ->get();
 
@@ -81,7 +82,8 @@ class CalendarioController extends Controller
                             'cms_users.name as usuario')
                       ->join('leads', 'leads.id', 'agendas.lead_id')
                       ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
-                      ->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                      //->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                      ->join('cms_users', 'cms_users.id', 'agendas.dest_user_id')
                       ->where('agendas.status', 'Pendiente')
                       //->where('agendas.dest_user_id', '=', $usuario)
                       ->where('agendas.user_id', '=', $usuario)
@@ -95,7 +97,8 @@ class CalendarioController extends Controller
                             'cms_users.name as usuario')
                       ->join('leads', 'leads.id', 'agendas.lead_id')
                       ->join('lead_statuses', 'lead_statuses.id', 'leads.status_id')
-                      ->join('cms_users', 'cms_users.id', 'agendas.user_id')
+                      ->join('cms_users', 'cms_users.id', 'agendas.dest_user_id')
+                      //->join('cms_users', 'cms_users.id', 'agendas.user_id')
                       ->where('agendas.status', 'Pendiente')
                       ->get();
 		}

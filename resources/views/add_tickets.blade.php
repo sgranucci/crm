@@ -93,11 +93,11 @@
               	<div class="col-md-6">
                 	<div class='form-group'>
                     	{!! Form::label ('test', 'Agendar?:' ) !!}
-                        @if ($privilegio == 1)
+                        {{--@if ($privilegio == 1)--}}
                     	    {!! Form::checkbox('agenda', 'value' , false, ['class' => 'checkbox', 'id' => 'agenda']) !!}
-                        @else
+                        {{--@else
                             {!! Form::checkbox('agenda', 'value' , true, ['class' => 'checkbox', 'id' => 'agenda']) !!}
-                        @endif
+                        @endif--}}
                 	</div>
                 </div>
               	<div class="col-md-6">
@@ -111,13 +111,13 @@
               		<div class="col-md-8">
                 		<div class='form-group dest_user'>
                    			{!! Form::label ('Destino', 'A usuario:' ) !!}
-                            @if ($privilegio == 1)
+                            {{--@if ($privilegio == 1)--}}
                    			    {!! Form::select ('dest_user_id', $dest_user_id, $dest_user_default_id, ['class'=> 'form-control select2' , 'id' => 'dest_user_id',
                                     'placeholder' => 'Seleccione un usuario'])!!}
-                            @else
+                            {{--@else
                                 {!! Form::select ('dest_user_id', $dest_user_id, $dest_user_default_id, ['class'=> 'form-control select2' , 'id' => 'dest_user_id',
                                     'placeholder' => 'Seleccione un usuario', 'required' => 'true'])!!}
-                            @endif
+                            @endif--}}
                 		</div>
                 	</div>
                 </div>
@@ -133,7 +133,7 @@
               	<div class="col-md-6">
                 	<div class='form-group'>
                     	{!! Form::label ('hora_ag', 'Hora:' ) !!}
-                    	{!! Form::time('hora_ag', '12:00', ['class'=> 'form-control ag' , 'id' => 'hora' ]) !!}
+                    	{!! Form::time('hora_ag', '09:00', ['class'=> 'form-control ag' , 'id' => 'hora' ]) !!}
                 	</div>
                 </div>
                 </div>
@@ -173,7 +173,7 @@
                 </div>
                 <div class='form-group'>
                     {!! Form::label ('hora_re', 'Hora:' ) !!}
-                    {!! Form::time('hora_re', '12:00', ['class'=> 'form-control ag' , 'id' => 'horaR' ]) !!}
+                    {!! Form::time('hora_re', '09:00', ['class'=> 'form-control ag' , 'id' => 'horaR' ]) !!}
                 </div>
 
                 <div class='form-group'>

@@ -242,11 +242,20 @@
 											->where('email',$postdata['email'])->orderBy('id')->get();
 					
 							// Borra todos los leads del mismo email
-		        			$borra = DB::table('leads')->where('id', '!=', $result->id)
+							if (count($res) > 1)
+							{
+								$flBorra = false;
+								foreach($res as $r)
+								{
+									if ($result->id == $r->id)
+										$flBorra = true;
+								}
+								if ($flBorra)
+									$borra = DB::table('leads')->where('id', '!=', $result->id)
 													//->where('canal_id',$postdata['canal_id'])
 													->where('email',$postdata['email'])
-                                                    ->delete();
-
+													->delete();
+							}
 							// Actualiza los tickets al nuevo id
 							foreach($res as $lead)
 							{

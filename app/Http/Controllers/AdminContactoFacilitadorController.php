@@ -29,7 +29,6 @@ class AdminContactoFacilitadorController extends \crocodicstudio\crudbooster\con
 			$this->button_export = false;
 			$this->table = "leads";
 			# END CONFIGURATION DO NOT REMOVE THIS LINE
-
 			# START COLUMNS DO NOT REMOVE THIS LINE
         $this->col = [];
         $this->col[] = ["label"=>"Creado","name"=>"created_at"];
