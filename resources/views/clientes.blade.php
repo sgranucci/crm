@@ -136,7 +136,7 @@
                 @if(CRUDBooster::isUpdate() && $button_edit)
                 <a class='btn btn-success btn-xs' href='{{CRUDBooster::mainpath("edit/$row->id")}}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> </a>
                 @endif
-                <a class='btn btn-danger btn-xs'
+                <a class='btn btn-warning btn-xs'
                    href="{{CRUDBooster::adminpath()}}/tickets?parent_table=leads&parent_columns=name,tel_full&parent_columns_alias=&parent_id={{$row->id}}&return_url={{ $url }}&foreign_key=lead_id&label=Tickets">
                     <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
                 </a>

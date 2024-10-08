@@ -54,9 +54,19 @@ class AdminContactoController extends \crocodicstudio\crudbooster\controllers\CB
         $this->form[] = ['label'=>'Telefono','name'=>'telefono','type'=>'text','validation'=>'string|max:12','width'=>'col-sm-10'];
         $this->form[] = ['label'=>'Canal','name'=>'canal_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'canals,name','datatable_where'=>'estado_id = 1'];
         //$this->form[] = ['label'=>'Producto','name'=>'product_id','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-10','datatable'=>'products,name'];
-        $this->form[] = ['label'=>'Proxima Accion','name'=>'proxima_accion','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-9','datatable'=>'proxima_accions,name'];
+        $this->form[] = ['label'=>'Producto','name'=>'product_id','type'=>'hidden','value'=>'1'];
+        if (CRUDBooster::isCreate())
+            $this->form[] = ['label'=>'Proxima Accion','name'=>'proxima_accion','type'=>'hidden','value'=>'49'];
+        else
+            $this->form[] = ['label'=>'Proxima Accion','name'=>'proxima_accion','type'=>'select2','validation'=>'required|integer|min:0','width'=>'col-sm-9','datatable'=>'proxima_accions,name'];
+
         $this->form[] = ['label'=>'Observaciones','name'=>'detalle','type'=>'textarea','validation'=>'required','width'=>'col-sm-9'];
-        $this->form[] = ['label'=>'Situación:','name'=>'situacion_id','type'=>'select2','validation'=>'required','width'=>'col-sm-9','datatable'=>'situacions,name'];
+
+        if (CRUDBooster::isCreate())
+            $this->form[] = ['label'=>'Situación:','name'=>'situacion_id','type'=>'hidden','value'=>'9'];
+        else
+            $this->form[] = ['label'=>'Situación:','name'=>'situacion_id','type'=>'select2','validation'=>'required','width'=>'col-sm-9','datatable'=>'situacions,name'];
+
         $this->form[] = ['label'=>'Manager:','name'=>'manager_id','type'=>'select2','validation'=>'nullable|integer','width'=>'col-sm-10','datatable'=>'cms_users,name','datatable_where'=>'id != 3 and id != 1 and id != 16 and id != 2 and status != \'Inactivo\''];
         # END FORM DO NOT REMOVE THIS LINE
 

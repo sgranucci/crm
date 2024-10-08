@@ -63,24 +63,16 @@
           		@endif
           		@if ($ag->status == "Contacto")
           			color: 'orange',
-          			@if ($ag->proxima_accion == 3 || $ag->proxima_accion == 15 || $ag->proxima_accion == 18 || $ag->proxima_accion == 1)
-                  		@php
-            				$path = CRUDBooster::adminPath() ."/contacto?q=".$ag->id;
-            			@endphp
-                	@endif
+               		@php
+           				$path = CRUDBooster::adminPath() ."/contacto?q=".$ag->id;
+           			@endphp
           		@endif
           		@if ($ag->status == "Prospect")
           			color: 'green',
-          			@if ($ag->proxima_accion == 12)
-                  		@php
-            				$path = CRUDBooster::adminPath() ."/prospectFacilitador?q=".$ag->id;
-            			@endphp
-                	@else
-                  		@php
-                    		$path = CRUDBooster::adminPath() ."/prospect?q=".$ag->id;
-                  		@endphp
-                	@endif
-          		@endif
+					@php
+						$path = CRUDBooster::adminPath() ."/prospect?q=".$ag->id;
+					@endphp
+				@endif
           		@if ($ag->status == "Cliente")
           			color: 'grey',
           			@php
